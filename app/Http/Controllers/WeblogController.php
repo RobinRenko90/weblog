@@ -43,9 +43,9 @@ class WeblogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Weblog $weblog)
     {
-        //
+        return view('weblogs.show', compact($weblog));
     }
 
     /**
