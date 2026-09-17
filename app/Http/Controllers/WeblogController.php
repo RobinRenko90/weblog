@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateWeblogRequest;
+use App\Http\Requests\EditWeblogRequest;
+use App\Models\Comment;
 use App\Models\Weblog;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -15,7 +17,7 @@ class WeblogController extends Controller
      */
     public function index()
     {
-        $weblogs = Weblog::orderBy('created_at')->get();
+        $weblogs = Weblog::orderBy('created_at', 'desc')->get();
 
         return view('weblogs.index', compact('weblogs'));
     }
@@ -45,23 +47,34 @@ class WeblogController extends Controller
      */
     public function show(Weblog $weblog)
     {
-        return view('weblogs.show', compact($weblog));
+        $comments = Comment::where('weblog_id', $weblog->id)->get();
+
+        // dd($comments);
+
+        return view('weblogs.show', compact(['weblog', 'comments']));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Weblog $weblog)
     {
-        //
+        return view('weblogs.edit', compact('weblog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EditWeblogRequest $request, Weblog $weblog)
     {
-        //
+        $validateData = $request->validated(); 
+
+        $weblog->updateOrFail($validateData);
+
+        $comments = Comment::where('weblog_id', $weblog->id)->get();
+
+
+        return view('weblogs.show', compact(['weblog', 'comments']));
     }
 
     /**
