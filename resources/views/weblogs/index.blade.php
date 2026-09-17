@@ -4,11 +4,11 @@
     <div class="grid gap-4">
         <a class="underline" href="{{ route('weblogs.create') }}">Weblog aanmaken</a>
         @foreach($weblogs as $weblog)
-            <div class="">
+            <a href="{{ route('weblogs.show', $weblog->id) }}" class="border p-2">
                 <b class="text-lg">{{ $weblog->title }}</b>
                 <p>{{ $weblog->description }}</p>
                 <i class="text-sm">{{ $weblog->created_at }}</i>
-            </div>
+            </a>
         @endforeach
     </div>
 @endsection
