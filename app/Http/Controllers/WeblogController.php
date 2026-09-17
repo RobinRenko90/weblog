@@ -10,6 +10,8 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+use Auth;
+
 class WeblogController extends Controller
 {
     /**

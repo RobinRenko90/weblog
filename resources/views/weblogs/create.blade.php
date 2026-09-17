@@ -10,7 +10,7 @@
         <label for="description" value="">Omschrijving</label>
         <textarea class="border border-[#19140035] w-full p-1" name="description" id="description" rows="5"></textarea>
 
-        <input type="hidden" name="user_id" value="1">
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
         <input class="px-2 border" type="submit" value="Opslaan">
     </form>
