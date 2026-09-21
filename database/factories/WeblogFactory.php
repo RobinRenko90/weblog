@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\Weblog;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,7 @@ class WeblogFactory extends Factory
         return [
             'title' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'user_id' => 1,
+            'user_id' => User::all()->random()->id,
             'created_at' => $this->faker->dateTimeBetween('-1 month', 'now'),
         ];
     }
