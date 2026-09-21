@@ -1,6 +1,7 @@
 @extends('/layouts.main')
 
 @section('content')
+    @include('components.alerts')
     <div class="grid gap-4">
         <a class="underline w-50" href="{{ route('weblogs.create') }}">Weblog aanmaken</a>
         @foreach($weblogs as $weblog)

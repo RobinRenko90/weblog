@@ -19,7 +19,8 @@ class WeblogController extends Controller
      */
     public function index()
     {
-        $weblogs = Weblog::orderBy('created_at', 'desc')->get();
+        $weblogs = Weblog::where('user_id', Auth::user()->id)
+                        ->orderBy('created_at', 'desc')->get();
 
         return view('weblogs.index', compact('weblogs'));
     }
@@ -82,8 +83,10 @@ class WeblogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Weblog $weblog)
     {
-        //
+        $weblog->delete();
+        
+        return redirect('/weblogs')->with('success', 'Weblog is verwijderd');
     }
 }

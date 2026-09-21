@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@include('components.alerts')
 
 @section('content')
     <div class="w-95">
