@@ -24,7 +24,7 @@
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
 
-                    <button class="cursor-pointer" type="submit">Logout</button>
+                    <button class="cursor-pointer" type="submit">Uitloggen</button>
                 </form>
             </div>
         @else
@@ -34,6 +34,10 @@
                 </div>
             @endif    
         @endif
+        @if(Route::currentRouteName() != '')
+            <a class="underline w-50" href="/">Home</a>
+        @endif
+
         <header class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             @yield('title')
         </header>

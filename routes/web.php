@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WeblogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Auth\LoginController;
@@ -19,5 +20,6 @@ Route::post('/logout', [LogoutController::class, 'handle'])->name('logout');
 
 route::middleware(['auth'])->group(function () {
     Route::resource('weblogs', WeblogController::class);
+    Route::resource('categories', CategoryController::class);
     Route::post('weblogs/{weblog}/comment', [CommentController::class, 'store'])->name('comment.store');
 });

@@ -7,8 +7,9 @@
 @section('content')
     <div class="flex">
         <div class="w-full flex-1">
-            <nav>
-                <a href="{{ route('weblogs.index') }}">weblogs</a>
+            <nav class="grid grid-cols-1">
+                <a href="{{ route('weblogs.index') }}">Weblogs</a>
+                <a href="{{ route('categories.index') }}">Categorieen</a>
             </nav>
         </div>
     </div>    
