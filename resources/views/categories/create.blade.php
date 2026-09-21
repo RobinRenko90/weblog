@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-    <form class="grid" action="" method="post">
+    @include('components.alerts')
+
+    <form class="grid" action="{{Route('categories.store')}}" method="post">
         @csrf
         <label for="name" class="font-semibold">Naam categorie</label>
         <input class="border w-100 px-1" type="text" name="name" id="name" placeholder="Naam categorie....">

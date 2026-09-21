@@ -34,7 +34,7 @@
                 </div>
             @endif    
         @endif
-        @if(Route::currentRouteName() != '')
+        @if(Route::currentRouteName() != '' && Route::currentRouteName() != 'login')
             <a class="underline w-50" href="/">Home</a>
         @endif
 

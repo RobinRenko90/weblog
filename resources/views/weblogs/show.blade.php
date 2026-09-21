@@ -29,7 +29,7 @@
                 <form action="{{ route('comment.store', $weblog->id) }}" method="post">
                     <textarea class="border w-75 p-1" name="content" id="content" rows=4  placeholder="Laat een bericht achter...."></textarea>
                     <br>
-                    <input class="border p-1 cursor-pointer" type="submit" value="Plaats commentaar">
+                    <input class="p-1 cursor-pointer bg-gray-400 text-white rounded" type="submit" value="Plaats commentaar">
                     <input type="hidden" name="user_id" value='1'>
                     <input type="hidden" name="weblog_id" value="{{ $weblog->id }}">
                 </form>

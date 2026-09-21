@@ -7,13 +7,14 @@
 @section('content')
 @include('components.alerts')
     <div class="grid gap-4">
-        <a class="underline w-50" href="{{ route('categories.create') }}">Categorie aanmaken</a>
-        {{-- @foreach($weblogs as $weblog)
-            <a href="{{ route('weblogs.show', $weblog->id) }}" class="border p-2">
-                <b class="text-lg">{{ $weblog->title }}</b>
-                <p>{{ $weblog->description }}</p>
-                <i class="text-sm">{{ $weblog->created_at }}</i>
-            </a>
-        @endforeach --}}
+        <a class="w-fit bg-gray-500 p-2 text-white rounded" href="{{ route('categories.create') }}">Categorie aanmaken</a>
+        <table>
+        @foreach($categories as $category)
+            <tr>
+                <td>{{ $category->name }}</td>
+                <td><a href="{{ route('categories.show', $category->id) }}">bewerken</a></td>
+            </tr>
+        @endforeach
+        </table>
     </div>
 @endSection
