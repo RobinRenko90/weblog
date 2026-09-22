@@ -24,4 +24,9 @@ class Weblog extends Model
    {
       return $this->belongsToMany(Comment::class, 'comment_weblogs');
    }
+
+   function categories(): BelongsToMany
+   {
+      return $this->belongsToMany(Category::class, 'category_weblogs');
+   }
 }

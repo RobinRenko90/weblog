@@ -1,27 +1,47 @@
 @extends('/layouts.main')
 
 @section('content')
-    <p class="mb-5"><a class="underline" href="{{ route('weblogs.index') }}">terug naar overzicht</a></p>
+    <p class="mb-15"><a class="underline" href="{{ route('weblogs.index') }}">Terug naar overzicht</a></p>
     <div class="flex justify-between">
         <div>
-            <h3 class="text-2xl font-bold">{{ $weblog->title }}</h3>
+            @if(count($weblog->categories))
+                <div class="flex gap-2 mb-2">
+                    @foreach($weblog->categories as $category)
+                        <p class="rounded bg-green-300 text-xs h-fit px-2 py-1">{{ $category->name }}</p>
+                    @endforeach
+                </div>
+             @endif   
+            <h3 class="text-2xl font-bold mb-4">{{ $weblog->title }}</h3>
             <p>{{ $weblog->description }}</p>
+
+            <div class="mt-10 flex gap-5">
+                <a class="px-2 py-1 cursor-pointer bg-blue-500 text-white rounded" href="{{ route('weblogs.edit', $weblog->id) }}">Bewerken</a>
+                <form action="" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="px-2 py-1 cursor-pointer bg-red-500 text-white rounded"
+                        onclick="return confirm('Weet je zeker dat je deze log wilt verwijderen?')">
+                        Verwijderen
+                    </button>
+                </form>
+            </div>    
         </div>
 
         <div>
-        <strong>Comments:</strong>
-            <div class="text-xs">
+            <strong>Comments:</strong>
+            <div class="text-sm mb-2">
                 <ul>
-                    <li><p>Mijn eerst comment op de log <br> <i>Robin - 18 sept 2026</i></p></li>
-                @foreach($comments as $comment)
-                    <li class="mt-2">
+                @forelse($comments as $comment)
+                    <li>
                         <p>
                             {{ $comment->content }}
                             <br>
-                            <i>{{ $comment->created_at }}</i>
+                            <i class="text-xs">{{ $comment->created_at }}</i>
                         </p>
                     </li>
-                @endforeach
+                @empty
+                    <i>Nog geen comments geplaatst</i>
+                @endforelse
                 </ul>
             </div>
 
@@ -37,16 +57,4 @@
 
         </div>
     </div>
-
-    <div class="mt-5 flex gap-5">
-       <a class="underline" href="{{ route('weblogs.edit', $weblog->id) }}">Bewerken</a>
-        <form action="" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="underline cursor-pointer"
-                onclick="return confirm('Weet je zeker dat je deze log wilt verwijderen?')">
-                Verwijderen
-            </button>
-        </form>
-    </div>    
 @endsection
