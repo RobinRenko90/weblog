@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateWeblogRequest;
 use App\Http\Requests\EditWeblogRequest;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Weblog;
 use Illuminate\Auth\Events\Validated;
@@ -17,12 +18,25 @@ class WeblogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $weblogs = Weblog::where('user_id', Auth::user()->id)
-                        ->orderBy('created_at', 'desc')->get();
+        $search = $request->get('category');
 
-        return view('weblogs.index', compact('weblogs'));
+        $weblogs = Weblog::where('user_id', Auth::user()->id)
+                        ->orderBy('created_at', 'desc');
+
+        if ($request->filled('category')) {
+            $weblogs->whereHas('categories', function ($query) use ($search){
+                $query->where('name', $search);
+            });
+        }
+
+        $categories = Category::all();
+
+        return view('weblogs.index', [
+            'categories' => $categories,
+            'weblogs'    => $weblogs->get(),
+        ]);
     }
 
     /**
@@ -30,7 +44,9 @@ class WeblogController extends Controller
      */
     public function create()
     {
-        return view('weblogs.create');
+        $categories = Category::all();
+
+        return view('weblogs.create', compact('categories'));
     }
 
     /**
@@ -42,6 +58,8 @@ class WeblogController extends Controller
 
         $weblog = Weblog::create($validate);
 
+        $syncCategories = $weblog->categories()->sync($request->category);
+
         return redirect('weblogs');
     }
 
@@ -52,8 +70,6 @@ class WeblogController extends Controller
     {
         $comments = Comment::where('weblog_id', $weblog->id)->get();
 
-        // dd($comments);
-
         return view('weblogs.show', compact(['weblog', 'comments']));
     }
 
@@ -62,7 +78,10 @@ class WeblogController extends Controller
      */
     public function edit(Weblog $weblog)
     {
-        return view('weblogs.edit', compact('weblog'));
+        $categories = Category::all();
+        $selectedCategories = $weblog->categories->pluck('id')->all();
+
+        return view('weblogs.edit', compact('weblog', 'categories', 'selectedCategories'));
     }
 
     /**
@@ -76,6 +95,7 @@ class WeblogController extends Controller
 
         $comments = Comment::where('weblog_id', $weblog->id)->get();
 
+        $syncCategories = $weblog->categories()->sync($request->category);
 
         return view('weblogs.show', compact(['weblog', 'comments']));
     }
