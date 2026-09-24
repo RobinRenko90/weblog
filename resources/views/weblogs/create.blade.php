@@ -3,17 +3,20 @@
 @section('content')
     @include('components.alerts')
 
-    <form action="{{Route('weblogs.store')}}" method="post">
+    <form action="{{Route('weblogs.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="grid grid-cols-1 w-150">
 
-            <label for="title">Titel</label>
+            <label for="title"><strong>Titel</strong></label>
             <input class="border border-[#19140035] w-full p-1 mb-2" type="text" name="title" id="title">
 
-            <label for="description" value="">Omschrijving</label>
+            <label for="description" value=""><strong>Omschrijving</strong></label>
             <textarea class="border border-[#19140035] w-full p-1 mb-2" name="description" id="description" rows="5"></textarea>
 
-            <label for="category">Categorieën</label>
+            <label for="image"><strong>Afbeelding</strong></label>
+            <input class="mb-2" type="file" name="image" id="image">
+
+            <label for="category"><strong>Categorieën</strong></label>
             <select name="category[]" id="category" class="border p-1" multiple>
                     <option value="select" disabled>Selecteer een categorie</option>
                     @foreach($categories as $category)

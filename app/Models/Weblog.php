@@ -12,7 +12,7 @@ class Weblog extends Model
    use HasFactory;
    use SoftDeletes;
 
-   protected $fillable = ['title', 'description', 'user_id'];
+   protected $fillable = ['title', 'description', 'user_id', 'image'];
 
    protected $casts = [
       'created_at',

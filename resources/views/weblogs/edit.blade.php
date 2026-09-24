@@ -1,9 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
+    @include('components.alerts')
+
     <p class="mb-3 text-2xl">Bewerken</p>
 
-    <form action="{{Route('weblogs.update', $weblog)}}" method="post">
+    <form action="{{Route('weblogs.update', $weblog)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method("PATCH")    
         <div class="grid grid-cols-1 w-150">
@@ -13,6 +15,9 @@
 
             <label for="description" value="">Omschrijving</label>
             <textarea class="border border-[#19140035] w-full p-1 mb-2" name="description" id="description" rows="5">{{ old ( 'description', $weblog->description ) }}</textarea>
+
+            <label for="image"><strong>Afbeelding</strong></label>
+            <input class="mb-2" type="file" name="image" id="image">
 
             <label for="category">Categorieën</label>
             <select name="category[]" id="category" class="border p-1" multiple>

@@ -10,8 +10,10 @@ use App\Models\Weblog;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\File;
 
 use Auth;
+use Storage;
 
 class WeblogController extends Controller
 {
@@ -56,7 +58,14 @@ class WeblogController extends Controller
     {
         $validate = $request->validated();
 
-        $weblog = Weblog::create($validate);
+        $weblog = Weblog::create($request->except('image'));
+
+        if( $request->hasFile('image') ) {
+            $imageName = $request->title.'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'), $imageName);
+            $weblog->image = 'images/'.$imageName;
+            $weblog->save();
+        }
 
         $syncCategories = $weblog->categories()->sync($request->category);
 
@@ -91,7 +100,17 @@ class WeblogController extends Controller
     {
         $validateData = $request->validated(); 
 
-        $weblog->updateOrFail($validateData);
+        $weblog->updateOrFail($request->except('image'));
+
+        if($request->hasFile('image')){
+            if ($weblog->image) {
+                Storage::disk('local')->delete($weblog->image);
+            }
+            $imageName = $request->title.'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'), $imageName);
+            $weblog->image = 'images/'.$imageName;
+            $weblog->save();
+        }
 
         $comments = Comment::where('weblog_id', $weblog->id)->get();
 

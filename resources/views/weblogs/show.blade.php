@@ -13,7 +13,9 @@
              @endif   
             <h3 class="text-2xl font-bold mb-4">{{ $weblog->title }}</h3>
             <p>{{ $weblog->description }}</p>
-
+            @if($weblog->image)
+               <img class="mt-5" src="{{ asset($weblog->image) }}">
+            @endif
             <div class="mt-10 flex gap-5">
                 <a class="px-2 py-1 cursor-pointer bg-blue-500 text-white rounded" href="{{ route('weblogs.edit', $weblog->id) }}">Bewerken</a>
                 <form action="" method="post">

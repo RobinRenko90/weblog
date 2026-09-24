@@ -22,6 +22,7 @@ class CreateWeblogRequest extends FormRequest
             'title'       => ['required'],
             'description' => ['required'],
             'user_id'     => ['required'],
+            'image'       => ['file','mimes:jpg,jpeg,png'],
         ];
     }
 }

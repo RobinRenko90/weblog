@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('weblogs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->boolean('premium')->default(false);
             $table->timestamps();

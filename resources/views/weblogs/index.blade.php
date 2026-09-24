@@ -21,7 +21,7 @@
         @forelse($weblogs as $weblog)
             <a href="{{ route('weblogs.show', $weblog->id) }}" class="border p-2 rounded-xl">
                 <b class="text-lg">{{ $weblog->title }}</b>
-                <p>{{ $weblog->description }}</p>
+                <p>{!! Str::words($weblog->description, 20, '...') !!}</p>
                 <i class="text-sm">{{ $weblog->created_at }}</i>
             </a>
         @empty
