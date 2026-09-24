@@ -3,7 +3,7 @@
 @section('content')
     <p class="mb-15"><a class="underline" href="{{ route('weblogs.index') }}">Terug naar overzicht</a></p>
     <div class="flex justify-between">
-        <div>
+        <div class="pr-20">
             @if(count($weblog->categories))
                 <div class="flex gap-2 mb-2">
                     @foreach($weblog->categories as $category)

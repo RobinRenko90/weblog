@@ -5,6 +5,8 @@
 @endsection
 
 @section('content')
+@include('components.alerts')
+
     <div class="flex">
         <div class="w-full flex-1">
             <nav class="grid grid-cols-1">

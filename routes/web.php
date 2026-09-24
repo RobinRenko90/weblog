@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WeblogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 
@@ -18,6 +19,9 @@ route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+
+    Route::get('/abbonement', [SubscriptionController::class, 'index'])->name('subscription.index');
+    Route::post('/abbonement', [SubscriptionController::class, 'subscribe'])->name('subscription.subscribe');
 
     Route::resource('weblogs', WeblogController::class);
     Route::resource('categories', CategoryController::class);
