@@ -24,8 +24,11 @@ class WeblogController extends Controller
     {
         $search = $request->get('category');
 
-        $weblogs = Weblog::where('user_id', Auth::user()->id)
-                        ->orderBy('created_at', 'desc');
+        $weblogs = Weblog::where('user_id', Auth::user()->id);
+
+        if (!Auth::user()->subscribed) {
+            $weblogs->where('premium', 0);
+        }
 
         if ($request->filled('category')) {
             $weblogs->whereHas('categories', function ($query) use ($search){
@@ -37,7 +40,7 @@ class WeblogController extends Controller
 
         return view('weblogs.index', [
             'categories' => $categories,
-            'weblogs'    => $weblogs->get(),
+            'weblogs'    => $weblogs->orderByDesc('created_at')->get(),
         ]);
     }
 

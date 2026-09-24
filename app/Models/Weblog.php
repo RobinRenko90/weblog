@@ -12,12 +12,13 @@ class Weblog extends Model
    use HasFactory;
    use SoftDeletes;
 
-   protected $fillable = ['title', 'description', 'user_id', 'image'];
+   protected $fillable = ['title', 'description', 'user_id', 'image', 'premium'];
 
    protected $casts = [
       'created_at',
       'updated_at',
       'deleted_at',
+      'premium' => 'boolean',
    ];
 
    function comments(): BelongsToMany 

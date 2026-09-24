@@ -23,6 +23,7 @@ class EditWeblogRequest extends FormRequest
             'description' => ['required'],
             'user_id'     => ['required'],
             'image'       => ['file','mimes:jpg,jpeg,png'],
+            'premium'     => ['boolean'],
         ];
     }
 }

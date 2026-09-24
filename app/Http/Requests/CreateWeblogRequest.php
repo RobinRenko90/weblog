@@ -11,6 +11,8 @@ class CreateWeblogRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      */
 
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,11 +20,14 @@ class CreateWeblogRequest extends FormRequest
      */
     public function rules(): array
     {
+        // dd($this);
+
         return [
             'title'       => ['required'],
             'description' => ['required'],
             'user_id'     => ['required'],
             'image'       => ['file','mimes:jpg,jpeg,png'],
+            'premium'     => ['boolean'],
         ];
     }
 }
