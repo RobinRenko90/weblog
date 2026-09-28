@@ -11,10 +11,14 @@
         <form action="" method="post">
             @csrf
 
-            <button 
-            {!! Auth::user()->subscribed === 1 ? "disabled class='bg-gray-400 p-2 cursor-pointer text-white rounded'" : "class='bg-green-400 p-2 cursor-pointer text-white rounded'" !!}" type="submit"
-            onclick="return confirm('Weet je zeker dat je deze abbonement wilt afsluiten?')"
-            >Nu betalen</button>
+            @if(Auth::user()->subscribed == 0)
+                <button class='bg-green-400 p-2 cursor-pointer text-white rounded' type="submit"
+                    onclick="return confirm('Weet je zeker dat je deze abbonement wilt afsluiten?')">
+                Nu betalen
+                </button>
+            @else
+                <button class="bg-gray-400 p-2 cursor-pointer text-white rounded" disabled>Abbonement actief</button>
+            @endif    
         </form>
     </div>
 

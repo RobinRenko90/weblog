@@ -24,10 +24,10 @@
                 @endforeach    
             </select>
             
-            <label for="premium"><strong>Premium content</strong></label>
-            <div class="flex w-fit gap-2 mb-2">
+            <div class="flex w-fit gap-2 my-2">
                 <input type="hidden" name="premium" value="0">
-                <input type="checkbox" name="premium" id="premium" value="1"><span class="right-left">premium</span>
+                <input type="checkbox" name="premium" id="premium" value="1">
+                <label for="premium">Premium content</label>
             </div>
 
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

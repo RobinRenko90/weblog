@@ -13,6 +13,7 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\File;
 
 use Auth;
+use DB;
 use Storage;
 
 class WeblogController extends Controller
@@ -24,7 +25,7 @@ class WeblogController extends Controller
     {
         $search = $request->get('category');
 
-        $weblogs = Weblog::where('user_id', Auth::user()->id);
+        $weblogs = Weblog::query();
 
         if (!Auth::user()->subscribed) {
             $weblogs->where('premium', 0);
@@ -36,11 +37,11 @@ class WeblogController extends Controller
             });
         }
 
-        $categories = Category::all();
+        $weblogs->orderByRaw('CASE WHEN user_id = ? THEN 0 ELSE 1 END, created_at DESC', [Auth::id()]);
 
         return view('weblogs.index', [
-            'categories' => $categories,
-            'weblogs'    => $weblogs->orderByDesc('created_at')->get(),
+            'categories' => Category::all(),
+            'weblogs'    => $weblogs->paginate(10),
         ]);
     }
 

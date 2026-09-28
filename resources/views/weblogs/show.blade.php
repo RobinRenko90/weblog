@@ -23,17 +23,19 @@
             @if($weblog->image)
                <img class="mt-5" src="{{ asset($weblog->image) }}">
             @endif
-            <div class="mt-10 flex gap-5">
-                <a class="px-2 py-1 cursor-pointer bg-blue-500 text-white rounded" href="{{ route('weblogs.edit', $weblog->id) }}">Bewerken</a>
-                <form action="" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="px-2 py-1 cursor-pointer bg-red-500 text-white rounded"
-                        onclick="return confirm('Weet je zeker dat je deze log wilt verwijderen?')">
-                        Verwijderen
-                    </button>
-                </form>
-            </div>    
+            @if($weblog->user_id == Auth::user()->id)
+                <div class="mt-10 flex gap-5">
+                    <a class="px-2 py-1 cursor-pointer bg-blue-500 text-white rounded" href="{{ route('weblogs.edit', $weblog->id) }}">Bewerken</a>
+                    <form action="" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="px-2 py-1 cursor-pointer bg-red-500 text-white rounded"
+                            onclick="return confirm('Weet je zeker dat je deze log wilt verwijderen?')">
+                            Verwijderen
+                        </button>
+                    </form>
+                </div>    
+            @endif
         </div>
 
         <div>
@@ -41,7 +43,7 @@
             <div class="text-sm mb-2">
                 <ul>
                 @forelse($comments as $comment)
-                    <li>
+                    <li class="mb-2">
                         <p>
                             {{ $comment->content }}
                             <br>
@@ -63,7 +65,6 @@
                     <input type="hidden" name="weblog_id" value="{{ $weblog->id }}">
                 </form>
             </div>
-
         </div>
     </div>
 @endsection
