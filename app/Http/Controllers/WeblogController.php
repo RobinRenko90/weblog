@@ -112,7 +112,9 @@ class WeblogController extends Controller
             }
             $imageName = $request->title.'.'.$request->image->getClientOriginalExtension();
             $request->image->move(public_path('images'), $imageName);
-            $weblog->image = 'images/'.$imageName;
+            $weblog->update([
+               'image' => 'images/'.$imageName,
+            ]); 
             $weblog->save();
         }
 

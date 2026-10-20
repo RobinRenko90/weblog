@@ -17,7 +17,7 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] p-6 lg:p-8 min-h-screen flex-col">
+    <body class="bg-[#FDFDFC] text-[#1b1b18] p-6 lg:p-8 min-h-screen flex-col">
         @if(Auth::user())
             <div class="float-right grid">
                 <b>{{ Auth()->user()->name }}</b>
